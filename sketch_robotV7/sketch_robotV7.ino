@@ -85,6 +85,7 @@ void ledcam(int commande)
   if (commande == 3)
   {
     for(i = 0; i < 3; i++)
+    {
       digitalWrite(ledCam, HIGH);
       Serial.println("Led Camera ON");
       digitalWrite(ledCam, LOW);
