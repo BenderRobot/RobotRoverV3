@@ -1,0 +1,73 @@
+*
+{
+	-webkit-user-select: none;
+}
+body
+{
+	background: url('background.jpg');
+	font-family:trebuchet, helvetica, sans-serif;
+}
+#container div
+{
+}
+.onoff
+{
+	width: 60px;
+	height: 60px;
+	padding: 1px 2px 2px 2px;
+	font-size: 12px;
+	background: #028E9B;
+	text-align: center;
+	border-radius: 2px;
+	border: 2px solid white;
+	margin: 0 auto;
+}
+.onoff div
+{
+	width: 44px;
+	height: 44px;
+	min-height: 44px;
+	background: #028E9B;
+	overflow: hidden;
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+	border-right: 1px solid white;
+	border-bottom: : 1px solid white;
+	margin: 0 auto;
+	color: black;
+	border-radius: 2px;
+}
+.auto
+{
+	position: absolute;
+	top: 120px;
+	left: 40px;
+}
+.power
+{
+	position: absolute;
+	top: 20px;
+	left: 40px;
+}
+.led
+{
+	position: absolute;
+	top: 20px;
+	right: 40px;
+}
+.logo
+{
+	position: absolute;
+	bottom: 40px;
+	right: 46%;
+}
+.webcam
+{
+	border: 2px solid black;
+	border-radius: 3px;
+	border-color: white;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	 
+}
