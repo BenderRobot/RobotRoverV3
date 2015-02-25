@@ -82,7 +82,7 @@ void receiveData(int byteCount)
 
 void ledcam(int commande)
 {
-  if (commande == 3)
+  if (commande == 30)
   {
     for(i = 0; i < 3; i++)
     {
@@ -92,7 +92,7 @@ void ledcam(int commande)
       delay(10000);
     }
   }
-  else if (commande == 2 && i == 3)
+  else if (commande == 20 && i == 3)
   {
     digitalWrite(ledCam, HIGH); 
     Serial.println("Led Camera OFF");
