@@ -16,8 +16,7 @@
 
 Servo myservo;
 int pos = 100;
-int dataReceived = 0, commande = 0 ,i;
-
+int dataReceived = 0, commande = 0, ig = 0;
 
 void setup()
 {
@@ -82,21 +81,25 @@ void receiveData(int byteCount)
 
 void ledcam(int commande)
 {
+  int i;
   if (commande == 30)
   {
     for(i = 0; i < 3; i++)
     {
       digitalWrite(ledCam, HIGH);
+      delay(10000);
       Serial.println("Led Camera ON");
       digitalWrite(ledCam, LOW);
       delay(10000);
+      ig++;
     }
   }
-  else if (commande == 20 && i == 3)
+  else if (commande == 20 && ig == 3)
   {
     digitalWrite(ledCam, HIGH); 
     Serial.println("Led Camera OFF");
-    digitalWrite(ledCam, LOW);    
+    digitalWrite(ledCam, LOW);   
+    ig = 0; 
   }
 }
 
