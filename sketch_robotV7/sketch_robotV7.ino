@@ -15,8 +15,9 @@
 #define ledStart 13
 
 Servo myservo;
-int pos = 100;
-int dataReceived = 0, commande = 0, ig = 0;
+int pos = 85;
+int dataReceived = 0, commande = 0, led = 0;
+
 
 void setup()
 {
@@ -81,21 +82,31 @@ void receiveData(int byteCount)
 
 void ledcam(int commande)
 {
-  int i;
-  if (commande == 30)
+  
+  if (commande == 30 && led == 0)
   {
-     digitalWrite(ledCam, HIGH);
-     delay(1000);
-     Serial.println("Led Camera ON");
-     digitalWrite(ledCam, LOW);
-     ig++;
+      digitalWrite(ledCam, HIGH);
+      delay(10000);
+      Serial.println("Led Camera ON");
+      digitalWrite(ledCam, LOW);
+      led = led + 1;
+      delay(10000);
+      digitalWrite(ledCam, HIGH);
+      Serial.println("Led Camera ON");
+      digitalWrite(ledCam, LOW);
+      led = led + 1;
+      delay(10000);
+      digitalWrite(ledCam, HIGH);
+      Serial.println("Led Camera ON");
+      digitalWrite(ledCam, LOW);
+      led = led + 1;
   }
-  else if (commande == 20 && ig == 1)
+  else if (commande == 20 && led == 3)
   {
-    digitalWrite(ledCam, HIGH); 
+    digitalWrite(ledCam, HIGH);    
     Serial.println("Led Camera OFF");
-    digitalWrite(ledCam, LOW);   
-    ig = 0; 
+    digitalWrite(ledCam, LOW);  
+    led = 0;  
   }
 }
 
