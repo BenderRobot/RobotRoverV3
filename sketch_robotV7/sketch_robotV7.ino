@@ -84,17 +84,13 @@ void ledcam(int commande)
   int i;
   if (commande == 30)
   {
-    for(i = 0; i < 3; i++)
-    {
-      digitalWrite(ledCam, HIGH);
-      delay(10000);
-      Serial.println("Led Camera ON");
-      digitalWrite(ledCam, LOW);
-      delay(10000);
-      ig++;
-    }
+     digitalWrite(ledCam, HIGH);
+     delay(1000);
+     Serial.println("Led Camera ON");
+     digitalWrite(ledCam, LOW);
+     ig++;
   }
-  else if (commande == 20 && ig == 3)
+  else if (commande == 20 && ig == 1)
   {
     digitalWrite(ledCam, HIGH); 
     Serial.println("Led Camera OFF");
