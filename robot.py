@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+
 import smbus
 import sys
 import RPi.GPIO as GPIO
@@ -19,14 +20,7 @@ varCommande = sys.argv[1]
 commande = int(varCommande)
 if commande == 14 or commande == 15:
 	while commande != 15:
-		bus.write_byte(address, 1)
-		lux = bus.read_byte(address)
-		if lux < 80:
-			bus.write_byte(address, 30)
-		else:
-			bus.write_byte(address, 20)
-
-		time.sleep(0.3)
+		time.sleep(0.5)
 		GPIO.output(trig, True)
 		time.sleep(0.00001)
 		GPIO.output(trig, False)
@@ -45,10 +39,13 @@ if commande == 14 or commande == 15:
 			time.sleep(1)			
 		else:
 			bus.write_byte(address, 6)
-	
-	bus.write_byte(address, 0)
 
+elif commande == 30:
+	for i in range(3):
+		time.sleep(0.3)
+		bus.write_byte(address, commande)
+		
 else:
 	bus.write_byte(address, commande)
 
-GPIO.cleanup()
+GPIO.cleanup()		
