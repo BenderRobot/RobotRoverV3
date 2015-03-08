@@ -8,15 +8,15 @@
 #define moteurA 5
 #define directionB 7
 #define moteurB 6
-#define capteur 0
+
 #define ledCam 8
 #define servo 9
 #define SLAVE_ADDRESS 0x12
 #define ledStart 13
 
 Servo myservo;
-int pos = 85, valeur_capteur;
-int dataReceived = 0, commande = 0, led = 0;
+int pos = 85;
+int dataReceived = 0, commande = 0;
 
 
 void setup()
@@ -24,7 +24,6 @@ void setup()
   Serial.begin(9600);
   Wire.begin(SLAVE_ADDRESS);
   Wire.onReceive(receiveData);
-  Wire.onRequest(sendData);
   myservo.attach(servo);
   pinMode(moteurA, OUTPUT);
   pinMode(directionA, OUTPUT);
@@ -47,11 +46,10 @@ void receiveData(int byteCount)
   while(Wire.available())
   { 
     dataReceived = Wire.read();
-    Serial.print(dataReceived);
+    Serial.print("dataReceived ");
+    Serial.println(dataReceived);
+    Serial.print("commande ");
     Serial.println(commande);
-    valeur_capteur = lecture_capteur();
-    Serial.print("lums = ");
-    Serial.println(valeur_capteur);
     if(commande != 1 && dataReceived == 1)
     {
       Serial.println("Robot ON");
@@ -61,6 +59,7 @@ void receiveData(int byteCount)
     }
     else if(commande == 1 && dataReceived == 30 || commande == 1 && dataReceived == 20)
     {
+      Serial.println("Robot led");
       ledcam(dataReceived);
     }
     else if(commande == 1 && dataReceived >= 4 && dataReceived <= 8)
@@ -77,7 +76,6 @@ void receiveData(int byteCount)
       digitalWrite(ledCam, LOW);
       analogWrite(moteurA, 0);
       analogWrite(moteurB, 0);
-      ledcam(20);
       servoCam(12);
       commande = 0;
       Serial.println("Robot OFF");
@@ -85,44 +83,20 @@ void receiveData(int byteCount)
   }
 }
 
-void sendData()
-{
-  Wire.write(valeur_capteur);
-}
-
-int lecture_capteur(void)
-{
-  int val = 0;
-  val = analogRead(capteur);
-  return(val);
-}
-
 void ledcam(int commande)
 {
-  if (commande == 30 && led == 0)
+  
+  if (commande == 30)
   {
       digitalWrite(ledCam, HIGH);
-      delay(10000);
       Serial.println("Led Camera ON");
       digitalWrite(ledCam, LOW);
-      led = led + 1;
-      delay(10000);
-      digitalWrite(ledCam, HIGH);
-      Serial.println("Led Camera ON");
-      digitalWrite(ledCam, LOW);
-      led = led + 1;
-      delay(10000);
-      digitalWrite(ledCam, HIGH);
-      Serial.println("Led Camera ON");
-      digitalWrite(ledCam, LOW);
-      led = led + 1;
   }
-  else if (commande == 20 && led == 3)
+  else if (commande == 20)
   {
     digitalWrite(ledCam, HIGH);    
     Serial.println("Led Camera OFF");
-    digitalWrite(ledCam, LOW);  
-    led = 0;  
+    digitalWrite(ledCam, LOW); 
   }
 }
 
