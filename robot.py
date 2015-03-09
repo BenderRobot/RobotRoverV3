@@ -16,11 +16,12 @@ GPIO.setup(trig,GPIO.OUT)
 GPIO.setup(echo,GPIO.IN)
 GPIO.output(trig, False)
 
+go = 0
 varCommande = sys.argv[1]
 commande = int(varCommande)
 if commande == 14 or commande == 15:
 	while commande != 15:
-		time.sleep(0.5)
+		time.sleep(0.3)
 		GPIO.output(trig, True)
 		time.sleep(0.00001)
 		GPIO.output(trig, False)
@@ -32,13 +33,16 @@ if commande == 14 or commande == 15:
 
 		distance = round((end_pulse - start_pulse) * 340 * 100 / 2, 1)
 
-		if distance > 30:
-			bus.write_byte(address, 4)
+		if distance < 15:
+			bus.write_byte(address, 6)
+			go = 0
 		elif distance >= 15 and distance <= 30:
 			bus.write_byte(address, 5)
+			go = 0
 			time.sleep(1)			
-		else:
-			bus.write_byte(address, 6)
+		elif distance > 30 and go == 0:
+			bus.write_byte(address, 4)
+			go = 1
 
 elif commande == 30:
 	for i in range(3):
