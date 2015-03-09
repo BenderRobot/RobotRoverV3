@@ -43,7 +43,7 @@
 	</div>
 
 	<div class="auto">
-	<a><center>MANUAL/AUTO</center></a>
+	<a><center>AUTO</center></a>
 	<button class="onoff" onclick="onoffauto(this)"><div>OFF</div></button>
 	</div>
 
