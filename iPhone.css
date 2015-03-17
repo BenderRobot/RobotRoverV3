@@ -43,6 +43,33 @@ center{font-size: 10px;}
     color: black;
     border-radius: 2px;
 }
+.onoffauto
+{
+width: 80px;
+height: 40px;
+padding: 1px 2px 2px 2px;
+font-size: 10px;
+background: #028E9B;
+text-align: center;
+border-radius: 2px;
+border: 2px solid white;
+margin: 0 auto;
+}
+.onoffauto div
+{
+width: 48px;
+height: 24px;
+min-height: 24px;
+background: #028E9B;
+overflow: hidden;
+border-top: 1px solid black;
+border-left: 1px solid black;
+border-right: 1px solid white;
+border-bottom: 1px solid white;
+margin: 0 auto;
+color: black;
+border-radius: 2px;
+}
 .power
 {
     position: absolute;
