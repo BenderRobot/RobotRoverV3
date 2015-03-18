@@ -14,9 +14,10 @@ echo = 10
 GPIO.setup(trig,GPIO.OUT)
 GPIO.setup(echo,GPIO.IN)
 GPIO.output(trig, False)
+go = 0
 
 while True:
-	time.sleep(0.5)
+	time.sleep(0.3)
 	GPIO.output(trig, True)
 	time.sleep(0.00001)
 	GPIO.output(trig, False)
@@ -29,13 +30,17 @@ while True:
 
 	distance = round((end_pulse - start_pulse) * 340 * 100 / 2, 1)
 
-	if distance > 30:
-		bus.write_byte(address, 4)
-	elif distance >= 15 and distance <= 30:
+	if distance <= 17:
+		bus.write_byte(address, 6)
+		go = 0
+	elif distance > 17 and distance <= 35:
 		bus.write_byte(address, 5)
-		time.sleep(1)			
-		else:
-			bus.write_byte(address, 6)
-
+		time.sleep(1)
+		go = 0	
+	elif distance > 35 and go == 0:
+		bus.write_byte(address, 4)
+		go = 1
+	else:
+		go = go
 		
 GPIO.cleanup()

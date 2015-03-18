@@ -4,23 +4,13 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<link rel="apple-touch-icon" href="touch-icon-iphone.png">
-	<link rel="apple-touch-icon" sizes="76x76" href="touch-icon-ipad.png">
-	<link href="startupipad768x1004.png"
-		media="(device-width: 768px) and (device-height: 1024px)
-		and (-webkit-device-pixel-ratio: 1)
-		and (orientation: portrait)"
-		rel="apple-touch-startup-image"> 
-	<link href="startupiphone.png"
+	<link rel="apple-touch-icon" href="images/touch-icon-iphone.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="images/touch-icon-ipad.png">
+	<link href="images/startupiphone.png"
 		media="(device-width: 320px)
 		and (device-height: 480px)
 		and (-webkit-device-pixel-ratio: 2)"
 		rel="apple-touch-startup-image">
-	<link href="startupipad748x1024.png"
-		media="(device-width: 768px) and (device-height: 1024px)
-		and (-webkit-device-pixel-ratio: 1)
-		and (orientation: landscape)"
-	rel="apple-touch-startup-image">  
 	<link media="only screen and (max-device-width: 480px)" rel="stylesheet" href="iPhone.css"/>
 	<link media="only screen and (min-device-width: 481px)" rel="stylesheet" href="iPad.css"/>
 	
@@ -44,8 +34,8 @@
 	</div>
 
 	<div class="auto">
-	<a><center>MANUAL/AUTO</center></a>
-	<button class="onoff" onclick="onoffauto(this)"><div>MANUAL</div></button>
+	<a><center>MAN/AUTO</center></a>
+	<button class="onoffauto" onclick="onoffauto(this)"><div>MAN</div></button>
 	</div>
 
 	<div class="led">
@@ -56,8 +46,8 @@
 	<div>
 	<center>
 	<div class="logo">
-	<img width="50" height="50" src="arduino.png"/>
-	<img width="40" height="50" src="Raspi.png"/>
+	<img width="50" height="50" src="images/arduino.png"/>
+	<img width="40" height="50" src="images/Raspi.png"/>
 	</div>
 	</center>
 	</div>
@@ -145,7 +135,7 @@
 		}
 		else
 		{
-			blabel="MANUAL";
+			blabel="MAN";
 			bstyle="#028E9B";
 			bcolor="black";
 			var url ='motor.php?state=15';
