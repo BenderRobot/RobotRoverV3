@@ -1,0 +1,321 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="apple-touch-icon" href="images/touch-icon-iphone.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="images/touch-icon-ipad.png">
+	<link href="images/startupiphone.png"
+		media="(device-width: 320px)
+		and (device-height: 480px)
+		and (-webkit-device-pixel-ratio: 2)"
+		rel="apple-touch-startup-image">
+	<link media="only screen and (max-device-width: 480px)" rel="stylesheet" href="iPhone.css"/>
+	<link media="only screen and (min-device-width: 481px)" rel="stylesheet" href="iPad.css"/>
+	
+	<title>Robot Alpha v4</title>
+	
+	
+</head>
+<body onmousedown="return false;">
+	 
+	<div>
+	<center>
+	<div class="window">
+	<img class="webcam"  src="http://192.168.1.4:8080/?action=stream"></img>
+	</div>
+	</center>
+	</div>
+
+	<div class="power">
+	<a><center>POWER</center></a>
+	<button class="onoff" onclick="onoff(this)"><div>OFF</div></button>
+	</div>
+
+	<div class="auto">
+	<a><center>MAN/AUTO</center></a>
+	<button class="onoff" onclick="onoffauto(this)"><div>MAN</div></button>
+	</div>
+
+	<div class="led">
+	<a><center>LED</center></a>
+	<button class="onoff" onclick="onoffled(this)"><div>OFF</div></button>
+	</div>
+	
+	<div>
+	<center>
+	<div class="logo">
+	<img width="50" height="50" src="images/arduino.png"/>
+	<img width="40" height="50" src="images/Raspi.png"/>
+	</div>
+	</center>
+	</div>
+
+	<div id="container"><div></div></div>
+
+
+<script src="kinetic-v5.0.1.min.js"></script>
+<script defer="defer">
+
+	var xhr;
+	xhr = new XMLHttpRequest();
+	var buttonstate=0;
+	var buttonstateled=0;
+	var buttonstateauto=0;
+
+	function onoff(e)
+	{
+		buttonstate= 1 - buttonstate;
+		var blabel, bstyle, bcolor;
+		if(buttonstate)
+		{
+			blabel="ON";
+			bstyle="white";
+			bcolor="blue";
+			var url ='motor.php?state=1';
+			xhr.open('GET', url, false);
+			xhr.send();
+		}
+		else
+		{
+			blabel="OFF";
+			bstyle="#028E9B";
+			bcolor="black";
+			var url ='motor.php?state=0';
+			xhr.open('GET', url, false);
+			xhr.send();
+		}
+		var child=e.firstChild;
+		child.style.background= bstyle;
+		child.style.color= bcolor;
+		child.innerHTML= blabel;
+	}
+	
+	function onoffled(e)
+	{
+		buttonstateled= 1 - buttonstateled;
+		var blabel, bstyle, bcolor;
+		if(buttonstateled)
+		{
+			blabel="ON";
+			bstyle="white";
+			bcolor="blue";
+			var url ='motor.php?state=30';
+			xhr.open('GET', url, false);
+			xhr.send();
+		}
+		else
+		{
+			blabel="OFF";
+			bstyle="#028E9B";
+			bcolor="black";
+			var url ='motor.php?state=20';
+			xhr.open('GET', url, false);
+			xhr.send();
+		}
+		var child=e.firstChild;
+		child.style.background= bstyle;
+		child.style.color= bcolor;
+		child.innerHTML= blabel;
+	}
+	
+	function onoffauto(e)
+	{
+		buttonstateauto= 1 - buttonstateauto;
+		var blabel, bstyle, bcolor;
+		if(buttonstateauto)
+		{
+			blabel="AUTO";
+			bstyle="white";
+			bcolor="blue";
+			var url ='motor.php?state=14';
+			xhr.open('GET', url, false);
+			xhr.send();
+		}
+		else
+		{
+			blabel="MAN";
+			bstyle="#028E9B";
+			bcolor="black";
+			var url ='motor.php?state=15';
+			xhr.open('GET', url, false);
+			xhr.send();
+		}
+		var child=e.firstChild;
+		child.style.background= bstyle;
+		child.style.color= bcolor;
+		child.innerHTML= blabel;
+	}
+
+	function writeMessage(message) {
+        	text.setText(message);
+        	layer.draw();
+      	}
+      
+	var stage = new Kinetic.Stage({
+        	container: 'container',
+        	width: window.innerWidth,  
+   		height: 300
+      	});
+      	
+	var layer = new Kinetic.Layer();
+
+      	var text = new Kinetic.Text({
+        	x: (stage.width() / 2) - 40,
+        	y: 130,
+        	fontSize: 20,
+        	text: '',
+        	fill: 'white'
+      	});    	
+	
+	var joystick = new Kinetic.Circle({
+        	x: 100,
+        	y: 210,
+        	width: 50,
+        	height: 50,
+        	fill: '#028E9B',
+        	stroke: 'white',
+        	strokeWidth: 2,
+		lineJoin: 'round',
+		draggable: true,
+		dragBoundFunc: function(pos) {
+			var x = 100;
+       			var y = 210;
+        		var radius = 60;
+        		var scale = radius / Math.sqrt(Math.pow(pos.x - x, 2) + Math.pow(pos.y - y, 2));
+        if(scale < 1)
+          return {
+            y: Math.round((pos.y - y) * scale + y),
+            x: Math.round((pos.x - x) * scale + x)
+          };
+        else
+          return pos;
+        }
+
+});
+	joystick.on('dragstart dragmove touchstart', function() {
+		this.fill('white');
+		var touchPos = stage.getPointerPosition();
+		var x = touchPos.x
+        	var y = touchPos.y - 60;
+		if (y >= 70 && y < 100){
+			var url ='motor.php?state=9';
+			xhr.open('GET', url, false);
+			xhr.send();
+        		writeMessage('y: ' + y+ ' x:' +x);
+		}
+		if (y >= 100 && y < 130){
+			var url ='motor.php?state=10';
+			xhr.open('GET', url, false);
+			xhr.send();
+        		writeMessage('y: ' + y+ ' x:' +x);
+		}
+		if (y >= 130 && y < 170){
+			var url ='motor.php?state=11';
+			xhr.open('GET', url, false);
+			xhr.send();
+        		writeMessage('y: ' + y+ ' x:' +x);
+		}
+		if (y >= 170 && y < 190){
+			var url ='motor.php?state=12';
+			xhr.open('GET', url, false);
+			xhr.send();
+        		writeMessage('y: ' + y+ ' x:' +x);
+		}
+		if (y >= 190){
+			var url ='motor.php?state=13';
+			xhr.open('GET', url, false);
+			xhr.send();
+        		writeMessage('y: ' + y+ ' x:' +x);
+		}
+	});
+	joystick.on('touchend dragend', function() {
+		joystick.setX(100);
+		joystick.setY(210);
+		stage.draw();		
+		var url ='motor.php?state=8';
+		this.fill('#028E9B');
+		xhr.open('GET', url, false);
+		xhr.send();
+        	writeMessage('end joystick');
+      	});
+	var cam = new Kinetic.Circle({
+        	x: stage.width() -70,
+        	y: 210,
+        	width: 50,
+        	height: 50,
+        	fill: '#028E9B',
+        	stroke: 'white',
+        	strokeWidth: 2,
+		lineJoin: 'round',
+		draggable: true,
+		dragBoundFunc: function(pos) {
+			var x = this.getAbsolutePosition().x;
+			var y = pos.y;
+			if (y < 150){
+				y = 150;
+			}
+			if (y > 270){
+				y = 270;
+			}
+        		return {
+        	  		x: this.getAbsolutePosition().x,
+        	  		y: y
+        	  	}
+	        }
+      	});
+
+	cam.on('dragstart dragmove', function() {
+		var touchPos = stage.getPointerPosition();
+		var x = touchPos.x
+        	var y = touchPos.y - 60;
+		if (y >= 70 && y < 100){
+			var url ='motor.php?state=9';
+			xhr.open('GET', url, false);
+			xhr.send();
+        		writeMessage('y: ' + y+ ' x:' +x);
+		}
+		if (y >= 100 && y < 130){
+			var url ='motor.php?state=10';
+			xhr.open('GET', url, false);
+			xhr.send();
+        		writeMessage('y: ' + y+ ' x:' +x);
+		}
+		if (y >= 130 && y < 170){
+			var url ='motor.php?state=11';
+			xhr.open('GET', url, false);
+			xhr.send();
+        		writeMessage('y: ' + y+ ' x:' +x);
+		}
+		if (y >= 170 && y < 190){
+			var url ='motor.php?state=12';
+			xhr.open('GET', url, false);
+			xhr.send();
+        		writeMessage('y: ' + y+ ' x:' +x);
+		}
+		if (y >= 190){
+			var url ='motor.php?state=13';
+			xhr.open('GET', url, false);
+			xhr.send();
+        		writeMessage('y: ' + y+ ' x:' +x);
+		}
+	});
+
+	var line = new Kinetic.Line({
+        	points: [stage.width() -70, 145, stage.width() -70, 275],
+        	stroke: 'white',
+        	strokeWidth: 50,
+        	lineCap: 'round',
+        	lineJoin: 'round'
+      	});                            
+
+	layer.add(line);
+	layer.add(cam);
+	layer.add(joystick);
+      	layer.add(text);
+      	stage.add(layer);
+
+</script>
+</body>
+</html>
