@@ -10,10 +10,10 @@ address = 0x12
 varCommande = sys.argv[1]
 commande = int(varCommande)
 
-if commande == 30:
+if commande == 4:
 	for i in range(3):
 		time.sleep(0.3)
-		bus.write_byte(address, 30)
+		bus.write_byte(address, 4)
 		
 else:
 	bus.write_byte(address, commande)
