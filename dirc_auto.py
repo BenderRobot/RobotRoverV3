@@ -14,7 +14,6 @@ GPIO.setup(trig,GPIO.OUT)
 GPIO.setup(echo,GPIO.IN)
 GPIO.output(trig, False)
 go = 0
-turn = 13
 count_turn = 0
 
 def sonar():
@@ -35,14 +34,14 @@ while True:
 
 	time.sleep(0.3)
 	distance = sonar()
-	if distance <= 17:
+	if distance <= 15:
 		bus.write_byte(address, 15)
 		#print distance
 		#print ' back'
 		go = 0
-	elif distance > 17 and distance <= 35:
+	elif distance > 15 and distance <= 35:
 		if count_turn < 2:
-			bus.write_byte(address, turn)
+			bus.write_byte(address, 13)
 			#print distance
 			#print ' turn right'
 			time.sleep(1)

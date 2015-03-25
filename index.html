@@ -14,11 +14,11 @@
 	<link media="only screen and (max-device-width: 480px)" rel="stylesheet" href="iPhone.css"/>
 	<link media="only screen and (min-device-width: 481px)" rel="stylesheet" href="iPad.css"/>
 	
-	<title>my robot alpha v3</title>
+	<title>Robot V5</title>
 	
 	
 </head>
-<body onmousedown="return false;">
+<body>
 	 
 	<div>
 	<center>
@@ -35,7 +35,7 @@
 
 	<div class="auto">
 	<a><center>MAN/AUTO</center></a>
-	<button class="onoffauto" onclick="onoffauto(this)"><div>MAN</div></button>
+	<button class="onoff" onclick="onoffauto(this)"><div>MAN</div></button>
 	</div>
 
 	<div class="led">
@@ -101,7 +101,7 @@
 			blabel="ON";
 			bstyle="white";
 			bcolor="blue";
-			var url ='motor.php?state=30';
+			var url ='motor.php?state=4';
 			xhr.open('GET', url, false);
 			xhr.send();
 		}
@@ -110,7 +110,7 @@
 			blabel="OFF";
 			bstyle="#028E9B";
 			bcolor="black";
-			var url ='motor.php?state=20';
+			var url ='motor.php?state=5';
 			xhr.open('GET', url, false);
 			xhr.send();
 		}
@@ -129,7 +129,7 @@
 			blabel="AUTO";
 			bstyle="white";
 			bcolor="blue";
-			var url ='motor.php?state=14';
+			var url ='motor.php?state=3';
 			xhr.open('GET', url, false);
 			xhr.send();
 		}
@@ -138,7 +138,7 @@
 			blabel="MAN";
 			bstyle="#028E9B";
 			bcolor="black";
-			var url ='motor.php?state=15';
+			var url ='motor.php?state=2';
 			xhr.open('GET', url, false);
 			xhr.send();
 		}
@@ -170,7 +170,7 @@
       	});    	
 	
 	var haut = new Kinetic.Rect({
-        	x: 60,
+        	x: 65,
         	y: 130,
         	width: 50,
         	height: 50,
@@ -184,7 +184,7 @@
         	writeMessage('start haut');
 		this.fill('white');
 		layer.draw();
-		var url ='motor.php?state=4';
+		var url ='motor.php?state=11';
 		xhr.open('GET', url, false);
 		xhr.send();
       	});
@@ -193,72 +193,39 @@
         	writeMessage('end haut');
 		this.fill('#028E9B');
 		layer.draw();
-		var url ='motor.php?state=8';
+		var url ='motor.php?state=19';
 		xhr.open('GET', url, false);
 		xhr.send();
       	});
-
-	var bas = new Kinetic.Rect({
-        	x: 60,
-        	y: 250,
-        	width: 50,
-        	height: 50,
+	var hautdroite = new Kinetic.Line({
+       		points: [120, 130, 120, 180, 170, 180],
         	fill: '#028E9B',
         	stroke: 'white',
         	strokeWidth: 2,
-		lineJoin: 'bevel'
-      	});
+		lineJoin: 'bevel',
+        	closed: true
+    	});
 
-      	bas.on('touchstart', function() {
-		var url ='motor.php?state=6';
+      	hautdroite.on('touchstart', function() {
+        	writeMessage('start haut droite');
 		this.fill('white');
 		layer.draw();
+		var url ='motor.php?state=12';
 		xhr.open('GET', url, false);
 		xhr.send();
-        	writeMessage('start bas');
       	});
       	
-	bas.on('touchend', function() {
-		var url ='motor.php?state=8';
+	hautdroite.on('touchend', function() {
+        	writeMessage('end haut droite');
 		this.fill('#028E9B');
 		layer.draw();
+		var url ='motor.php?state=19';
 		xhr.open('GET', url, false);
 		xhr.send();
-        	writeMessage('end bas');
       	});
-	
-	var left = new Kinetic.Rect({
-        	x: 5,
-        	y: 190,
-        	width: 50,
-        	height: 50,
-        	fill: '#028E9B',
-        	stroke: 'white',
-        	strokeWidth: 2,
-		lineJoin: 'bevel'
-      	});
-
-      	left.on('touchstart', function() {
-        	var url ='motor.php?state=7';
-		this.fill('white');
-		layer.draw();
-		xhr.open('GET', url, false);
-		xhr.send();
-		writeMessage('start left');
-      	});
-      	
-	left.on('touchend', function() {
-		var url ='motor.php?state=8';
-		this.fill('#028E9B');
-		layer.draw();
-		xhr.open('GET', url, false);
-		xhr.send();
-        	writeMessage('end left');
-      	});
-	
 	var right = new Kinetic.Rect({
-        	x: 115,
-        	y: 190,
+        	x: 120,
+        	y: 185,
         	width: 50,
         	height: 50,
         	fill: '#028E9B',
@@ -268,7 +235,7 @@
       	});
 
       	right.on('touchstart', function() {
-		var url ='motor.php?state=5';
+		var url ='motor.php?state=13';
 		this.fill('white');
 		layer.draw();
 		xhr.open('GET', url, false);
@@ -277,17 +244,150 @@
       	});
       	
 	right.on('touchend', function() {
-		var url ='motor.php?state=8';
+		var url ='motor.php?state=19';
 		this.fill('#028E9B');
 		layer.draw();
 		xhr.open('GET', url, false);
 		xhr.send();
         	writeMessage('end right');
       	});
+	var basdroite = new Kinetic.Line({
+       		points: [120, 240, 120, 290, 170, 240],
+        	fill: '#028E9B',
+        	stroke: 'white',
+        	strokeWidth: 2,
+		lineJoin: 'bevel',
+        	closed: true
+    	});
 
+      	basdroite.on('touchstart', function() {
+        	writeMessage('start bas droite');
+		this.fill('white');
+		layer.draw();
+		var url ='motor.php?state=14';
+		xhr.open('GET', url, false);
+		xhr.send();
+      	});
+      	
+	basdroite.on('touchend', function() {
+        	writeMessage('end bas droite');
+		this.fill('#028E9B');
+		layer.draw();
+		var url ='motor.php?state=19';
+		xhr.open('GET', url, false);
+		xhr.send();
+      	});
+	var bas = new Kinetic.Rect({
+        	x: 65,
+        	y: 240,
+        	width: 50,
+        	height: 50,
+        	fill: '#028E9B',
+        	stroke: 'white',
+        	strokeWidth: 2,
+		lineJoin: 'bevel'
+      	});
+
+      	bas.on('touchstart', function() {
+		var url ='motor.php?state=15';
+		this.fill('white');
+		layer.draw();
+		xhr.open('GET', url, false);
+		xhr.send();
+        	writeMessage('start bas');
+      	});
+      	
+	bas.on('touchend', function() {
+		var url ='motor.php?state=19';
+		this.fill('#028E9B');
+		layer.draw();
+		xhr.open('GET', url, false);
+		xhr.send();
+        	writeMessage('end bas');
+      	});
+	var basgauche = new Kinetic.Line({
+       		points: [10, 240, 60, 240, 60, 290],
+        	fill: '#028E9B',
+        	stroke: 'white',
+        	strokeWidth: 2,
+		lineJoin: 'bevel',
+        	closed: true
+    	});
+
+      	basgauche.on('touchstart', function() {
+        	writeMessage('start bas gauche');
+		this.fill('white');
+		layer.draw();
+		var url ='motor.php?state=16';
+		xhr.open('GET', url, false);
+		xhr.send();
+      	});
+      	
+	basgauche.on('touchend', function() {
+        	writeMessage('end bas gauche');
+		this.fill('#028E9B');
+		layer.draw();
+		var url ='motor.php?state=19';
+		xhr.open('GET', url, false);
+		xhr.send();
+      	});
+	var left = new Kinetic.Rect({
+        	x: 10,
+        	y: 185,
+        	width: 50,
+        	height: 50,
+        	fill: '#028E9B',
+        	stroke: 'white',
+        	strokeWidth: 2,
+		lineJoin: 'bevel'
+      	});
+
+      	left.on('touchstart', function() {
+        	var url ='motor.php?state=17';
+		this.fill('white');
+		layer.draw();
+		xhr.open('GET', url, false);
+		xhr.send();
+		writeMessage('start left');
+      	});
+      	
+	left.on('touchend', function() {
+		var url ='motor.php?state=19';
+		this.fill('#028E9B');
+		layer.draw();
+		xhr.open('GET', url, false);
+		xhr.send();
+        	writeMessage('end left');
+      	});
+	var hautgauche = new Kinetic.Line({
+       		points: [10, 180, 60, 180, 60, 130],
+        	fill: '#028E9B',
+        	stroke: 'white',
+        	strokeWidth: 2,
+		lineJoin: 'bevel',
+        	closed: true
+    	});
+
+      	hautgauche.on('touchstart', function() {
+        	writeMessage('start haut gauche');
+		this.fill('white');
+		layer.draw();
+		var url ='motor.php?state=18';
+		xhr.open('GET', url, false);
+		xhr.send();
+      	});
+      	
+	hautgauche.on('touchend', function() {
+        	writeMessage('end haut gauche');
+		this.fill('#028E9B');
+		layer.draw();
+		var url ='motor.php?state=19';
+		xhr.open('GET', url, false);
+		xhr.send();
+      	});
 	var cam = new Kinetic.Rect({
         	x: stage.width() -70,
-        	y: 190,
+        	y: 185,
         	width: 50,
         	height: 50,
         	fill: '#028E9B',
@@ -315,31 +415,31 @@
 		var touchPos = stage.getPointerPosition();
         	var y = touchPos.y - 60;
 		if (y >= 70 && y < 100){
-			var url ='motor.php?state=9';
+			var url ='motor.php?state=6';
 			xhr.open('GET', url, false);
 			xhr.send();
         		writeMessage('y: ' + y);
 		}
 		if (y >= 100 && y < 130){
-			var url ='motor.php?state=10';
+			var url ='motor.php?state=7';
 			xhr.open('GET', url, false);
 			xhr.send();
         		writeMessage('y: ' + y);
 		}
 		if (y >= 130 && y < 170){
-			var url ='motor.php?state=11';
+			var url ='motor.php?state=8';
 			xhr.open('GET', url, false);
 			xhr.send();
         		writeMessage('y: ' + y);
 		}
 		if (y >= 170 && y < 190){
-			var url ='motor.php?state=12';
+			var url ='motor.php?state=9';
 			xhr.open('GET', url, false);
 			xhr.send();
         		writeMessage('y: ' + y);
 		}
 		if (y >= 190){
-			var url ='motor.php?state=13';
+			var url ='motor.php?state=10';
 			xhr.open('GET', url, false);
 			xhr.send();
         		writeMessage('y: ' + y);
@@ -347,13 +447,16 @@
 	});
 
 	var line = new Kinetic.Line({
-        	points: [stage.width() -45, 130, stage.width() -45, 295],
+        	points: [stage.width() -45, 130, stage.width() -45, 290],
         	stroke: 'white',
         	strokeWidth: 12,
         	lineCap: 'round',
         	lineJoin: 'round'
       	});                            
-
+	layer.add(hautdroite);
+	layer.add(basdroite);
+	layer.add(basgauche);
+	layer.add(hautgauche);
 	layer.add(line);
 	layer.add(cam);
 	layer.add(right);
