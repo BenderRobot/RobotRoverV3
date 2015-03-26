@@ -13,6 +13,8 @@
 		rel="apple-touch-startup-image">
 	<link media="only screen and (max-device-width: 480px)" rel="stylesheet" href="iPhone.css"/>
 	<link media="only screen and (min-device-width: 481px)" rel="stylesheet" href="iPad.css"/>
+	<script type='text/javascript' src="f_onoff.js"></script>
+	<script type='text/javascript' src="kinetic-v5.0.1.min.js"></script>
 	
 	<title>Robot V5</title>
 	
@@ -52,102 +54,9 @@
 	</center>
 	</div>
 
-	<div id="container"><div></div></div>
-
-
-<script src="kinetic-v5.0.1.min.js"></script>
-<script defer="defer">
-
-	var xhr;
-	xhr = new XMLHttpRequest();
-	var buttonstate=0;
-	var buttonstateled=0;
-	var buttonstateauto=0;
-
-	function onoff(e)
-	{
-		buttonstate= 1 - buttonstate;
-		var blabel, bstyle, bcolor;
-		if(buttonstate)
-		{
-			blabel="ON";
-			bstyle="white";
-			bcolor="blue";
-			var url ='motor.php?state=1';
-			xhr.open('GET', url, false);
-			xhr.send();
-		}
-		else
-		{
-			blabel="OFF";
-			bstyle="#028E9B";
-			bcolor="black";
-			var url ='motor.php?state=0';
-			xhr.open('GET', url, false);
-			xhr.send();
-		}
-		var child=e.firstChild;
-		child.style.background= bstyle;
-		child.style.color= bcolor;
-		child.innerHTML= blabel;
-	}
+	<div id="container"></div>
+	<script defer="defer">
 	
-	function onoffled(e)
-	{
-		buttonstateled= 1 - buttonstateled;
-		var blabel, bstyle, bcolor;
-		if(buttonstateled)
-		{
-			blabel="ON";
-			bstyle="white";
-			bcolor="blue";
-			var url ='motor.php?state=4';
-			xhr.open('GET', url, false);
-			xhr.send();
-		}
-		else
-		{
-			blabel="OFF";
-			bstyle="#028E9B";
-			bcolor="black";
-			var url ='motor.php?state=5';
-			xhr.open('GET', url, false);
-			xhr.send();
-		}
-		var child=e.firstChild;
-		child.style.background= bstyle;
-		child.style.color= bcolor;
-		child.innerHTML= blabel;
-	}
-	
-	function onoffauto(e)
-	{
-		buttonstateauto= 1 - buttonstateauto;
-		var blabel, bstyle, bcolor;
-		if(buttonstateauto)
-		{
-			blabel="AUTO";
-			bstyle="white";
-			bcolor="blue";
-			var url ='motor.php?state=3';
-			xhr.open('GET', url, false);
-			xhr.send();
-		}
-		else
-		{
-			blabel="MAN";
-			bstyle="#028E9B";
-			bcolor="black";
-			var url ='motor.php?state=2';
-			xhr.open('GET', url, false);
-			xhr.send();
-		}
-		var child=e.firstChild;
-		child.style.background= bstyle;
-		child.style.color= bcolor;
-		child.innerHTML= blabel;
-	}
-
 	function writeMessage(message) {
         	text.setText(message);
         	layer.draw();
@@ -465,7 +374,6 @@
       	layer.add(bas);
       	layer.add(text);
       	stage.add(layer);
-
 </script>
 </body>
 </html>
