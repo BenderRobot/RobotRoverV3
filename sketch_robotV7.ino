@@ -55,18 +55,18 @@ void receiveData(int byteCount)
       Serial.println("Robot ON");
       digitalWrite(ledStart, HIGH);
       commande = 1;
-      servoCam(11);
+      servoCam(8);
     }
-    else if(commande == 1 && dataReceived == 30 || commande == 1 && dataReceived == 20)
+    else if(commande == 1 && dataReceived == 4 || commande == 1 && dataReceived == 5)
     {
       Serial.println("Robot led");
       ledcam(dataReceived);
     }
-    else if(commande == 1 && dataReceived >= 4 && dataReceived <= 8)
+    else if(commande == 1 && dataReceived >= 11 && dataReceived <= 19)
     {
       deplacement(dataReceived);
     }
-    else if(commande == 1 && dataReceived >= 9 && dataReceived <= 13)
+    else if(commande == 1 && dataReceived >= 6 && dataReceived <= 10)
     {
       servoCam(dataReceived);
     }    
@@ -76,7 +76,7 @@ void receiveData(int byteCount)
       digitalWrite(ledCam, LOW);
       analogWrite(moteurA, 0);
       analogWrite(moteurB, 0);
-      servoCam(12);
+      servoCam(10);
       commande = 0;
       Serial.println("Robot OFF");
     }
@@ -86,13 +86,13 @@ void receiveData(int byteCount)
 void ledcam(int commande)
 {
   
-  if (commande == 30)
+  if (commande == 4)
   {
       digitalWrite(ledCam, HIGH);
       Serial.println("Led Camera ON");
       digitalWrite(ledCam, LOW);
   }
-  else if (commande == 20)
+  else if (commande == 5)
   {
     digitalWrite(ledCam, HIGH);    
     Serial.println("Led Camera OFF");
@@ -102,88 +102,103 @@ void ledcam(int commande)
 
 void servoCam(int commande)
 {
-  if (commande == 9)
+  if (commande == 6)
   {
-    pos = 150;
+    pos = 135;
     myservo.write(pos);      
-    Serial.println("Robot 140");
+    Serial.println("Robot 135");
   }
-  else if (commande == 10)
+  else if (commande == 7)
   {
-    pos = 120;
+    pos = 110;
     myservo.write(pos);
     Serial.println("Robot 110");
   }
-  else if (commande == 12)
+  else if (commande == 8)
+  {
+    pos = 85;
+    myservo.write(pos);
+    Serial.println("Robot 85");
+  }
+  else if (commande == 9)
   {
     pos = 70;
     myservo.write(pos);
     Serial.println("Robot 70");
   }
-  else if (commande == 13)
+  else if (commande == 10)
   {
-    pos = 55;
+    pos = 50;
     myservo.write(pos);
-    Serial.println("Robot 55");
-  }
-  else if (commande == 11)
-  {
-    if(pos > 85)
-    {
-      for(pos = pos; pos >= 85; pos--)
-      {
-        myservo.write(pos);
-        delay(500);
-      }
-    }
-    else
-    {
-      for(pos = pos;pos <= 85; pos++)
-      {
-        myservo.write(pos);
-        delay(500);
-      }
-    }
-    Serial.println("Robot 80");
+    Serial.println("Robot 50");
   }
 }
 
 
 void deplacement(int commande)
 {
-  if(commande == 4)
+  if(commande == 11)
   {
-    analogWrite(moteurA, 400);
-    analogWrite(moteurB, 400);
+    analogWrite(moteurA, 500);
+    analogWrite(moteurB, 500);
     digitalWrite(directionA, 1);
     digitalWrite(directionB, 1);
     Serial.println("Forward");
   }
-  else if(commande == 6)
+  else if(commande == 12)
   {
-    analogWrite(moteurA, 400);
-    analogWrite(moteurB, 400);
-    digitalWrite(directionA, 0);
-    digitalWrite(directionB, 0);
-    Serial.println("Back");
+    analogWrite(moteurA, 500);
+    digitalWrite(directionA, 1);
+    digitalWrite(directionB, 1);
+    Serial.println("light right");
   }
-  else if(commande == 5)
+  else if(commande == 13)
   {
-    analogWrite(moteurA, 400);
-    analogWrite(moteurB, 400);
+    analogWrite(moteurA, 500);
+    analogWrite(moteurB, 500);
     digitalWrite(directionA, 1);
     digitalWrite(directionB, 0);
     Serial.println("Right");
   }
-  else if(commande == 7)
+  else if(commande == 14)
   {
-    analogWrite(moteurA, 400);
-    analogWrite(moteurB, 400);
+    analogWrite(moteurA, 500);
+    digitalWrite(directionA, 0);
+    digitalWrite(directionB, 0);
+    Serial.println("back Right");
+  }
+  else if(commande == 15)
+  {
+    analogWrite(moteurA, 500);
+    analogWrite(moteurB, 500);
+    digitalWrite(directionA, 0);
+    digitalWrite(directionB, 0);
+    Serial.println("Back");
+  }
+  else if(commande == 16)
+  {
+    analogWrite(moteurB, 500);
+    digitalWrite(directionA, 0);
+    digitalWrite(directionB, 0);
+    Serial.println("back left");
+  }
+  else if(commande == 17)
+  {
+    analogWrite(moteurA, 500);
+    analogWrite(moteurB, 500);
     digitalWrite(directionA, 0);
     digitalWrite(directionB, 1);
     Serial.println("Left");
   }
-  else if(commande == 8)
+  else if(commande == 18)
+  {
+    
+    analogWrite(moteurB, 500);
+    digitalWrite(directionA, 1);
+    digitalWrite(directionB, 1);
+    Serial.println("go left");
+  }
+  else if(commande == 19)
   {
     analogWrite(moteurA, 0);
     analogWrite(moteurB, 0);
