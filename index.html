@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+
 	<meta name="viewport" content="width=device-width, user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -13,36 +14,30 @@
 		rel="apple-touch-startup-image">
 	<link media="only screen and (max-device-width: 480px)" rel="stylesheet" href="iPhone.css"/>
 	<link media="only screen and (min-device-width: 481px)" rel="stylesheet" href="iPad.css"/>
-	<script type='text/javascript' src="f_onoff.js"></script>
-	<script type='text/javascript' src="kinetic-v5.0.1.min.js"></script>
-	
-	<title>Robot V5</title>
-	
-	
+	<script type='text/javascript' src="f_javascript.js"></script>
+
+	<title>Robot V6</title>
+
 </head>
-<body>
-	 
+<body onload="init()" onmouseup="release1()" ontouchcancel="release1()">
+
 	<div>
-	<center>
-	<div class="window">
 	<img class="webcam"  src="http://192.168.1.4:8080/?action=stream"></img>
-	</div>
-	</center>
 	</div>
 
 	<div class="power">
 	<a><center>POWER</center></a>
-	<button class="onoff" onclick="onoff(this)"><div>OFF</div></button>
+	<button id="pwr" class="onoff" onclick="onoff(this)"><div>OFF</div></button>
 	</div>
 
 	<div class="auto">
-	<a><center>MAN/AUTO</center></a>
-	<button class="onoff" onclick="onoffauto(this)"><div>MAN</div></button>
+	<a><center>AUTO</center></a>
+	<button id="auto" class="onoff" onclick="onoff(this)"><div>OFF</div></button>
 	</div>
 
 	<div class="led">
 	<a><center>LED</center></a>
-	<button class="onoff" onclick="onoffled(this)"><div>OFF</div></button>
+	<button id="led" class="onoff" onclick="onoff(this)"><div>OFF</div></button>
 	</div>
 	
 	<div>
@@ -53,327 +48,52 @@
 	</div>
 	</center>
 	</div>
-
-	<div id="container"></div>
-<script defer="defer">
 	
-	function writeMessage(message) {
-        	text.setText(message);
-        	layer.draw();
-      	}
-      
-	var stage = new Kinetic.Stage({
-        	container: 'container',
-        	width: window.innerWidth,  
-   		height: 300
-      	});
-      	
-	var layer = new Kinetic.Layer();
+	<div id="butFrwrd" class="myButton"
+		onmousedown="press1(this.id,11)" onmouseup="release1(this.id,19)"
+		ontouchstart="press1(this.id,11)" ontouchend="release1(this.id,19)">
+	</div>
+	<div id="butFrwrdRight" class="myButton"
+		onmousedown="press1(this.id,12)" onmouseup="release1(this.id,19)"
+		ontouchstart="press1(this.id,12)" ontouchend="release1(this.id,19)">
+	</div>
+	<div id="butRight" class="myButton"
+		onmousedown="press1(this.id,13)" onmouseup="release1(this.id,19)"
+		ontouchstart="press1(this.id,13)" ontouchend="release1(this.id,19)">
+	</div>
+	<div id="butBckwrdRight" class="myButton"
+		onmousedown="press1(this.id,14)" onmouseup="release1(this.id,19)"
+		ontouchstart="press1(this.id,14)" ontouchend="release1(this.id,19)">
+	</div>
+	<div id="butBckwrd" class="myButton"
+		onmousedown="press1(this.id,15)" onmouseup="release1(this.id,19)"
+		ontouchstart="press1(this.id,15)" ontouchend="release1(this.id,19)">
+	</div>
+	<div id="butBckwrdLeft" class="myButton"
+		onmousedown="press1(this.id,16)" onmouseup="release1(this.id,19)"
+		ontouchstart="press1(this.id,16)" ontouchend="release1(this.id,19)">
+	</div>
+	<div id="butLeft" class="myButton"
+		onmousedown="press1(this.id,17)" onmouseup="release1(this.id,19)"
+		ontouchstart="press1(this.id,17)" ontouchend="release1(this.id,19)">
+	</div>
+	<div id="butFrwrdLeft" class="myButton"
+		onmousedown="press1(this.id,18)" onmouseup="release1(this.id,19)"
+		ontouchstart="press1(this.id,18)" ontouchend="release1(this.id,19)">
+	</div>
+	<div id="butCamUp" class="myButton"
+		onmousedown="press1(this.id,6)" onmouseup="release1(this.id,9)"
+		ontouchstart="press1(this.id,6)" ontouchend="release1(this.id,9)">
+	</div>
+	<div id="butCamMiddle" class="myButton"
+		onmousedown="press1(this.id,7)" onmouseup="release1(this.id,9)"
+		ontouchstart="press1(this.id,7)" ontouchend="release1(this.id,9)">
+	</div>
+	<div id="butCamDown" class="myButton"
+		onmousedown="press1(this.id,8)" onmouseup="release1(this.id,9)"
+		ontouchstart="press1(this.id,8)" ontouchend="release1(this.id,9)">
+	</div>
 
-      	var text = new Kinetic.Text({
-        	x: (stage.width() / 2) - 40,
-        	y: 130,
-        	fontSize: 20,
-        	text: '',
-        	fill: 'white'
-      	});    	
-	
-	var haut = new Kinetic.Rect({
-        	x: 65,
-        	y: 130,
-        	width: 50,
-        	height: 50,
-        	fill: '#028E9B',
-        	stroke: 'white',
-        	strokeWidth: 2,
-		lineJoin: 'bevel'
-      	});
-
-      	haut.on('touchstart', function() {
-        	writeMessage('start haut');
-		this.fill('white');
-		layer.draw();
-		var url ='motor.php?state=11';
-		xhr.open('GET', url, false);
-		xhr.send();
-      	});
-      	
-	haut.on('touchend', function() {
-        	writeMessage('end haut');
-		this.fill('#028E9B');
-		layer.draw();
-		var url ='motor.php?state=19';
-		xhr.open('GET', url, false);
-		xhr.send();
-      	});
-	var hautdroite = new Kinetic.Line({
-       		points: [120, 130, 120, 180, 170, 180],
-        	fill: '#028E9B',
-        	stroke: 'white',
-        	strokeWidth: 2,
-		lineJoin: 'bevel',
-        	closed: true
-    	});
-
-      	hautdroite.on('touchstart', function() {
-        	writeMessage('start haut droite');
-		this.fill('white');
-		layer.draw();
-		var url ='motor.php?state=12';
-		xhr.open('GET', url, false);
-		xhr.send();
-      	});
-      	
-	hautdroite.on('touchend', function() {
-        	writeMessage('end haut droite');
-		this.fill('#028E9B');
-		layer.draw();
-		var url ='motor.php?state=19';
-		xhr.open('GET', url, false);
-		xhr.send();
-      	});
-	var right = new Kinetic.Rect({
-        	x: 120,
-        	y: 185,
-        	width: 50,
-        	height: 50,
-        	fill: '#028E9B',
-        	stroke: 'white',
-        	strokeWidth: 2,
-		lineJoin: 'bevel'
-      	});
-
-      	right.on('touchstart', function() {
-		var url ='motor.php?state=13';
-		this.fill('white');
-		layer.draw();
-		xhr.open('GET', url, false);
-		xhr.send();
-        	writeMessage('start right');
-      	});
-      	
-	right.on('touchend', function() {
-		var url ='motor.php?state=19';
-		this.fill('#028E9B');
-		layer.draw();
-		xhr.open('GET', url, false);
-		xhr.send();
-        	writeMessage('end right');
-      	});
-	var basdroite = new Kinetic.Line({
-       		points: [120, 240, 120, 290, 170, 240],
-        	fill: '#028E9B',
-        	stroke: 'white',
-        	strokeWidth: 2,
-		lineJoin: 'bevel',
-        	closed: true
-    	});
-
-      	basdroite.on('touchstart', function() {
-        	writeMessage('start bas droite');
-		this.fill('white');
-		layer.draw();
-		var url ='motor.php?state=14';
-		xhr.open('GET', url, false);
-		xhr.send();
-      	});
-      	
-	basdroite.on('touchend', function() {
-        	writeMessage('end bas droite');
-		this.fill('#028E9B');
-		layer.draw();
-		var url ='motor.php?state=19';
-		xhr.open('GET', url, false);
-		xhr.send();
-      	});
-	var bas = new Kinetic.Rect({
-        	x: 65,
-        	y: 240,
-        	width: 50,
-        	height: 50,
-        	fill: '#028E9B',
-        	stroke: 'white',
-        	strokeWidth: 2,
-		lineJoin: 'bevel'
-      	});
-
-      	bas.on('touchstart', function() {
-		var url ='motor.php?state=15';
-		this.fill('white');
-		layer.draw();
-		xhr.open('GET', url, false);
-		xhr.send();
-        	writeMessage('start bas');
-      	});
-      	
-	bas.on('touchend', function() {
-		var url ='motor.php?state=19';
-		this.fill('#028E9B');
-		layer.draw();
-		xhr.open('GET', url, false);
-		xhr.send();
-        	writeMessage('end bas');
-      	});
-	var basgauche = new Kinetic.Line({
-       		points: [10, 240, 60, 240, 60, 290],
-        	fill: '#028E9B',
-        	stroke: 'white',
-        	strokeWidth: 2,
-		lineJoin: 'bevel',
-        	closed: true
-    	});
-
-      	basgauche.on('touchstart', function() {
-        	writeMessage('start bas gauche');
-		this.fill('white');
-		layer.draw();
-		var url ='motor.php?state=16';
-		xhr.open('GET', url, false);
-		xhr.send();
-      	});
-      	
-	basgauche.on('touchend', function() {
-        	writeMessage('end bas gauche');
-		this.fill('#028E9B');
-		layer.draw();
-		var url ='motor.php?state=19';
-		xhr.open('GET', url, false);
-		xhr.send();
-      	});
-	var left = new Kinetic.Rect({
-        	x: 10,
-        	y: 185,
-        	width: 50,
-        	height: 50,
-        	fill: '#028E9B',
-        	stroke: 'white',
-        	strokeWidth: 2,
-		lineJoin: 'bevel'
-      	});
-
-      	left.on('touchstart', function() {
-        	var url ='motor.php?state=17';
-		this.fill('white');
-		layer.draw();
-		xhr.open('GET', url, false);
-		xhr.send();
-		writeMessage('start left');
-      	});
-      	
-	left.on('touchend', function() {
-		var url ='motor.php?state=19';
-		this.fill('#028E9B');
-		layer.draw();
-		xhr.open('GET', url, false);
-		xhr.send();
-        	writeMessage('end left');
-      	});
-	var hautgauche = new Kinetic.Line({
-       		points: [10, 180, 60, 180, 60, 130],
-        	fill: '#028E9B',
-        	stroke: 'white',
-        	strokeWidth: 2,
-		lineJoin: 'bevel',
-        	closed: true
-    	});
-
-      	hautgauche.on('touchstart', function() {
-        	writeMessage('start haut gauche');
-		this.fill('white');
-		layer.draw();
-		var url ='motor.php?state=18';
-		xhr.open('GET', url, false);
-		xhr.send();
-      	});
-      	
-	hautgauche.on('touchend', function() {
-        	writeMessage('end haut gauche');
-		this.fill('#028E9B');
-		layer.draw();
-		var url ='motor.php?state=19';
-		xhr.open('GET', url, false);
-		xhr.send();
-      	});
-	var cam = new Kinetic.Rect({
-        	x: stage.width() -70,
-        	y: 185,
-        	width: 50,
-        	height: 50,
-        	fill: '#028E9B',
-        	stroke: 'white',
-        	strokeWidth: 2,
-		lineJoin: 'round',
-		draggable: true,
-		dragBoundFunc: function(pos) {
-			var x = this.getAbsolutePosition().x;
-			var y = pos.y;
-			if (y < 130){
-				y = 130;
-			}
-			if (y > 245){
-				y = 245;
-			}
-        		return {
-        	  		x: this.getAbsolutePosition().x,
-        	  		y: y
-        	  	}
-	        }
-      	});
-
-	cam.on('dragstart dragmove', function() {
-		var touchPos = stage.getPointerPosition();
-        	var y = touchPos.y - 60;
-		if (y >= 70 && y < 100){
-			var url ='motor.php?state=6';
-			xhr.open('GET', url, false);
-			xhr.send();
-        		writeMessage('y: ' + y);
-		}
-		if (y >= 100 && y < 130){
-			var url ='motor.php?state=7';
-			xhr.open('GET', url, false);
-			xhr.send();
-        		writeMessage('y: ' + y);
-		}
-		if (y >= 130 && y < 170){
-			var url ='motor.php?state=8';
-			xhr.open('GET', url, false);
-			xhr.send();
-        		writeMessage('y: ' + y);
-		}
-		if (y >= 170 && y < 190){
-			var url ='motor.php?state=9';
-			xhr.open('GET', url, false);
-			xhr.send();
-        		writeMessage('y: ' + y);
-		}
-		if (y >= 190){
-			var url ='motor.php?state=10';
-			xhr.open('GET', url, false);
-			xhr.send();
-        		writeMessage('y: ' + y);
-		}
-	});
-
-	var line = new Kinetic.Line({
-        	points: [stage.width() -45, 130, stage.width() -45, 290],
-        	stroke: 'white',
-        	strokeWidth: 12,
-        	lineCap: 'round',
-        	lineJoin: 'round'
-      	});                            
-	layer.add(hautdroite);
-	layer.add(basdroite);
-	layer.add(basgauche);
-	layer.add(hautgauche);
-	layer.add(line);
-	layer.add(cam);
-	layer.add(right);
-      	layer.add(left);
-      	layer.add(haut);
-      	layer.add(bas);
-      	layer.add(text);
-      	stage.add(layer);
-</script>
 </body>
 </html>
+
