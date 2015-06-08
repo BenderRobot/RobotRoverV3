@@ -10,11 +10,16 @@ address = 0x12
 varCommande = sys.argv[1]
 commande = int(varCommande)
 
-if commande == 4:
+if commande == 5:
 	for i in range(3):
 		time.sleep(0.3)
-		bus.write_byte(address, 4)
-		
+		bus.write_byte(address, 5)
+		reponse = bus.read_byte(address)
 else:
 	bus.write_byte(address, commande)
 
+reponse = bus.read_byte(address)
+file = open("status.txt", "w")
+file.write("status :\n")
+file.write(reponse)
+file.close()

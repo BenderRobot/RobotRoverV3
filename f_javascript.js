@@ -4,8 +4,8 @@
 	var butCamUp,butCamMiddle,butCamDown,butFrwrd,butFrwrdRight,butRight,butBckwrdRight,butBckwrd,butBckwrdLeft,butLeft,butFrwrdLeft, butpress;
 	function onoff(e)
 	{
-		if(e.id == "pwr" && power == 0){ buttonstate = 1; power = 1; cmd = 1;}
-		else if(e.id == "pwr" && power == 1){ buttonstate = 0; power = 0; cmd = 0;}
+		if(e.id == "pwr" && power == 0){ buttonstate = 1; power = 1; cmd = 11;}
+		else if(e.id == "pwr" && power == 1){ buttonstate = 0; power = 0; cmd = 10;}
 		else if(e.id == "auto" && auto == 0 && power == 1){ buttonstate = 1; auto = 1; cmd = 3;}
 		else if(e.id == "auto" && auto == 1){ buttonstate = 0; auto = 0; cmd = 2;}
 		else if(e.id == "led" && led == 0 && power == 1){ buttonstate = 1; led = 1; cmd = 5;}
@@ -39,13 +39,9 @@
 	}
 	function init() {
 		butFrwrd = document.getElementById("butFrwrd");
-		butFrwrdRight = document.getElementById("butFrwrdRight");
 		butRight = document.getElementById("butRight");
-		butBckwrdRight = document.getElementById("butBckwrdRight");
 		butBckwrd = document.getElementById("butBckwrd");
-		butBckwrdLeft = document.getElementById("butBckwrdLeft");
 		butLeft = document.getElementById("butLeft");
-		butFrwrdLeft = document.getElementById("butFrwrdLeft");
 		butCamUp = document.getElementById("butCamUp");
 		butCamMiddle = document.getElementById("butCamMiddle");
 		butCamDown = document.getElementById("butCamDown");
