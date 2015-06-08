@@ -18,20 +18,20 @@ elseif($state == 2)
 	exec($cmd .$state);
 
 }
-elseif($state == 6 and $dir == "dwn" or $state == 6 and $dir == "mddl" or $state == 6 and $dir == "mddl")
+elseif($state == 6 and $dir == "dwn" or $state == 6 and $dir == "mddl")
 {
 	$cmd = "sudo /etc/init.d/cam_up ";
 	$state = "start";
 	exec($cmd .$state);
 	$dir = "up";
 }
-elseif($state == 7 && $dir == "up" or $state == 7 && $dir == "dwn")
+elseif($state == 7 and $dir == "up" or $state == 7 and $dir == "dwn")
 {
 	$cmd = "sudo python /var/www/dirc_manual.py ";
 	exec($cmd .$state);
 	$dir = "mddl";
 }
-elseif($state == 8 and $dir == "up" or $state == 8 and $dir == "mddl" or $state == 8 and $dir == "mddl")
+elseif($state == 8 and $dir == "up" or $state == 8 and $dir == "mddl")
 {
 	$cmd = "sudo /etc/init.d/cam_down ";
 	$state = "start";
@@ -43,10 +43,6 @@ elseif($state == 9)
 	if($dir == "dwn")
 	{
 		$cmd = "sudo /etc/init.d/cam_down ";
-	}
-	elseif($dir == "mddl")
-	{
-		$cmd = "sudo /etc/init.d/cam_middle ";
 	}
 	elseif($dir == "up")
 	{

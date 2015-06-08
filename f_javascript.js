@@ -1,7 +1,7 @@
 /* start script javascript*/
 	var xhr,buttonstate=0,power=0,auto=0, led=0,cmd=0;
 	xhr = new XMLHttpRequest();
-	var butCamUp,butCamMiddle,butCamDown,butFrwrd,butFrwrdRight,butRight,butBckwrdRight,butBckwrd,butBckwrdLeft,butLeft,butFrwrdLeft, butpress;
+	var butCamUp,butCamMiddle,butCamDown,butFrwrd,butRight,butBckwrd,butLeft,butpress;
 	function onoff(e)
 	{
 		if(e.id == "pwr" && power == 0){ buttonstate = 1; power = 1; cmd = 11;}
