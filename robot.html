@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, user-scalable=no"/>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link rel="apple-touch-icon" href="images/touch-icon-iphone.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="images/touch-icon-ipad.png">
+	<link href="images/icon-hires.png" rel="icon" sizes="192x192" />
+	<link media="only screen and (max-device-width: 640px)" rel="stylesheet" href="android.css"/>
+	<link media="only screen and (min-device-width: 650px)" rel="stylesheet" href="iPad.css"/>
+	<script type='text/javascript' src="f_javascript.js"></script>
+	<script>
+	(function(a,b,c){
+		if(c in b&&b[c]){
+			var d,e=a.location,f=/^(a|html)$/i;
+			a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;
+			"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)
+			}
+		})(document,window.navigator,"standalone")
+	window.oncontextmenu = function(event) {
+		event.preventDefault();
+		event.stopPropagation();
+		return false;
+	};
+	</script>
+	<title>Robot BOT</title>
+</head>
+<body onload="init()" ontouchcancel="release1()">
+<div>
+	<img class="webcam" src="http://192.168.1.24:8080/?action=stream" onerror="testError1()"></img>
+</div>
+<div id="toolbar">
+	<div id="ico_bck">
+		<a href="index.html" >
+		<img id="bck" src="images/back.png" />
+	</a></div>
+	<div id="ico_pwr">
+		<img id="pwr" src="images/pwr_off.png" onclick="onoff(this)" />
+	</div>
+	<div id="ico_led">
+		<img id="led" src="images/led_off.png" onclick="onoff(this)" />
+	</div>
+	<div id="ico_video">
+		<a href="gallery.php">
+		<img id="video" src="images/video_icon.png"/>
+	</a></div>
+	<div id="ico_rec">
+		<img id="rec" src="images/rec_off.png" onclick="onoff(this)" />
+	</div>
+	<div id="ico_photo">
+		<img id="photo" src="images/photo_off.png" ontouchstart="this.src='images/photo_on.png'" ontouchend="this.src='images/photo_off.png'" onclick="take_pic(this)" />
+	</div>
+	<div id="ico_setting">
+		<a href="setting.html">
+		<img id="setting" src="images/setting.png"/></a>
+	</div>
+	<!--<div class="auto">
+	<a><center>CAM</center></a>
+	<button id="auto" class="onoff" onclick="onoff(this)"><div>OFF</div></button>
+	</div>-->
+</div>
+<div id="butFrwrd" class="myButton"
+	ontouchstart="press1(this.id,20)" ontouchend="release1(this.id,19)">
+	<img src="images/up.png"/>
+</div>
+<div id="butRight" class="myButton"
+	ontouchstart="press1(this.id,23)" ontouchend="release1(this.id,19)">
+	<img src="images/right.png"/>
+</div>
+<div id="butBckwrd" class="myButton"
+	ontouchstart="press1(this.id,21)" ontouchend="release1(this.id,19)">
+	<img src="images/down.png"/>
+</div>
+<div id="butLeft" class="myButton"
+	ontouchstart="press1(this.id,22)" ontouchend="release1(this.id,19)">
+	<img src="images/left.png"/>
+</div>
+<div id="butCamUp" class="myButton"
+	ontouchstart="press1(this.id,30)" ontouchend="release1(this.id,29)">
+	<img src="images/up.png"/>
+</div>
+<div id="butCamMiddle" class="myButton"
+	ontouchstart="press1(this.id,34)" ontouchend="release1(this.id,29)">
+</div>
+<div id="butCamDown" class="myButton"
+	ontouchstart="press1(this.id,31)" ontouchend="release1(this.id,29)">
+	<img src="images/down.png"/>
+</div>
+<div id="butCamRight" class="myButton"
+	ontouchstart="press1(this.id,33)" ontouchend="release1(this.id,29)">
+	<img src="images/right.png"/>
+</div>
+<div id="butCamLeft" class="myButton"
+	ontouchstart="press1(this.id,32)" ontouchend="release1(this.id,29)">
+	<img src="images/left.png"/>
+</div>
+<div id="foot">
+	<div id="div_dist">
+		<img src="images/distance.png"/>
+		<div id="distance"><p>0,0 cm</p></div>
+	</div>
+	<div id="div_vit">
+		<img src="images/vitesse.png"/>
+		<div id="vitesse"><p>Slow</p></div>
+	</div>
+	<div id="lastCmd"><a>initialisation</a></div>
+	<div id="angleT">
+		<img src="images/horizontal.png"/>
+		<div id="horizontal"><p>0</p></div>
+	</div>
+	<div id="angleP">
+		<img src="images/vertical.png"/>
+		<div id="vertical"><p>0</p></div>
+	</div>
+</div>
+</body>
+</html>
+

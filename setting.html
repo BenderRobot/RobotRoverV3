@@ -1,14 +1,19 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+
 	<meta name="viewport" content="width=device-width, user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<link rel="apple-touch-icon" href="images/touch-icon-iphone.png">
 	<link rel="apple-touch-icon" sizes="76x76" href="images/touch-icon-ipad.png">
-	<link href="images/icon-hires.png" rel="icon" sizes="192x192" />
-	<link media="only screen and (max-device-width: 640px)" rel="stylesheet" href="android.css"/>
-	<link media="only screen and (min-device-width: 650px)" rel="stylesheet" href="iPad.css"/>
+	<link href="images/startupiphone.png"
+		media="(device-width: 320px)
+		and (device-height: 480px)
+		and (-webkit-device-pixel-ratio: 2)"
+		rel="apple-touch-startup-image">
+	<link media="only screen and (max-device-width: 480px)" rel="stylesheet" href="iPhone.css"/>
+	<link media="only screen and (min-device-width: 481px)" rel="stylesheet" href="iPad.css"/>
 	<script type='text/javascript' src="f_javascript.js"></script>
 	<script>
 	(function(a,b,c){
@@ -18,37 +23,24 @@
 			"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)
 			}
 		})(document,window.navigator,"standalone")
-	window.oncontextmenu = function(event) {
-		event.preventDefault();
-		event.stopPropagation();
-		return false;
-	};
 	</script>
-	<title>Rover Bot</title>
+	
+	<title>Rover Bot Video</title>
+	
 </head>
 <body>
 	<div id="toolbar">
 		<div id="titre_principale">
-			<a>MAIN MENU</a>
-			<div id="logo">
-				<img src="images/logo_word.png" alt="logo robot" />
-			</div>
-			<div id="ico_setting">
-				<a href="setting.html">
-				<img id="setting" src="images/setting.png"/></a>
-			</div>
+			<a>SETTING MENU</a>
+			<div id="ico_bck">
+				<div href="" onclick="goBack()">
+				<img id="bck" src="images/back.png" />
+			</div></div>
 		</div>
 	</div>
-	<div id="main">
-	<div onclick="stream(99)">
-		<a href="robot.html" >
-		<img id="drive_robot" src="images/drive.png" width="160" height="160" />
-	</a></div>
-	<div id="video">
-		<a href="gallery.php" >
-		<img id="video_robot" src="images/video.png" width="160" height="160" />
-	</a></div>
-	</div>
+	<section>
+	
+	</section>
 	<div id="foot">
 		<a> Copyright Reserved Bender & Co </a>
 	</div>
