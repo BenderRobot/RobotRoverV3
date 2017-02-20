@@ -48,6 +48,7 @@ function init() {
 	butpress = 0;
 }
 function press1(id, cmd) {
+	navigator.vibrate([30]);
 	butpress = 1;
 	var NAME = document.getElementById(id);
 	NAME.className = "myButton pressed";
@@ -55,8 +56,6 @@ function press1(id, cmd) {
 	url += cmd;
 	xhrWrite.open('GET', url, false);
 	xhrWrite.send();
-	startDist = 1;
-	navigator.vibrate([30]);
 	loadStatus();
 }
 function release1(id, cmd) {
@@ -72,11 +71,13 @@ function release1(id, cmd) {
 	}
 }
 function loadStatus() {
+	var status = ""
+	distance();
 	xhrRead.onreadystatechange = function() {
-		var status = xhrRead.responseText;
+		status = xhrRead.responseText;
 		var tab_status = status.split('#');
 		document.getElementById("distance").innerHTML = "<p>" + dist + " cm</p>";
-		document.getElementById("vitesse").innerHTML = "<p>" + tab_status[4] + "</p>";
+		document.getElementById("vitesse").innerHTML = "<p>" + tab_status[3] + "</p>";
 		document.getElementById("lastCmd").innerHTML = "<a>" + tab_status[0] + "</a>";
 		document.getElementById("horizontal").innerHTML = "<p>" + tab_status[1] + "</p>";
 		document.getElementById("vertical").innerHTML = "<p>" + tab_status[2] + "</p>";
@@ -108,7 +109,7 @@ function testError() {
 	stream(99);
 }
 function goBack() {
-	window.history.back();
+	window.history.go(-1);
 }
 function take_pic() {
 	var url ='motor.php?state=';
@@ -118,7 +119,18 @@ function take_pic() {
 	xhrWrite.send();
 }
 function distance() {
-	var now = new Date();
-	
-
-/* end script */
+	if (startDist == 0) {
+		var now = new Date();
+		var minute  = now.getMinutes();
+		var seconde = now.getSeconds();
+		startDist = minute + "" + seconde;
+	}
+	else {
+		var now = new Date();
+		var minute  = now.getMinutes();
+		var seconde = now.getSeconds();
+		time = minute + "" + seconde;
+	}
+	dist = time - startDist;
+}
+/* end script startDist=0,dist=0,time=0;*/
